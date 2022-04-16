@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <img class="brand2" id="profile-brand" src="/static/brand.png"/>
+    <form class="profile-form" action="/users/edit/update/" method="POST" enctype="multipart/form-data">
+        <label>Profile Image:</label>
+        <input class="file-input" id="profile-image" type="file" name="profile"/>
+        <br>
+        <label>Experience Level:</label>
+        <select name="experience">
+            {% if user.exper == "" %}
+                <option value="" selected></option>
+            {% else %}
+                <option value=""></option>
+            {% endif %}
+            {% if user.exper == "New (Less than 1 year)" %}
+                <option value="New (Less than 1 year)" selected>New (Less than 1 year)</option>
+            {% else %}
+                <option value="New (Less than 1 year)">New (Less than 1 year)</option>
+            {% endif %}
+            {% if user.exper == "Amateur (1-2 Years)" %}
+                <option value="Amateur (1-2 Years)" selected>Amateur (1-2 Years)</option>
+            {% else %}
+                <option value="Amateur (1-2 Years)">Amateur (1-2 Years)</option>
+            {% endif %}
+            {% if user.exper == "Experienced (3-4 Years)" %}
+                <option value="Experienced (3-4 Years)" selected>Experienced (3-4 Years)</option>
+            {% else %}
+                <option value="Experienced (3-4 Years)">Experienced (3-4 Years)</option>
+            {% endif %}
+            {% if user.exper == "Veteran (5+ Years)" %}
+                <option value="Veteran (5+ Years)" selected>Veteran (5+ Years)</option>
+            {% else %}
+                <option value="Veteran (5+ Years)">Veteran (5+ Years)</option>
+            {% endif %}
+        </select>
+        <br>
+        <label>Favorite Games:</label>
+        <textarea type="text" name="favorite" placeholder="Favorite TTRPG Games">{{user.favorites}}</textarea>
+        <br>
+        <label>Bio:</label>
+        <textarea type="text" name="bio" placeholder="Bio">{{user.bio}}</textarea>
+        <br>
+        <button class="btn btn-primary" type="submit">Update</button>
+        <input type="hidden" name="operation" value="edit"/>
+    </form>
+{% endblock %}

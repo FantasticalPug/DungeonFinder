@@ -1,0 +1,74 @@
+{
+    "name": "DungeonFinder",
+    "short_name": "DungeonFinder",
+    "start_url": "/",
+    "scope": "/",
+    "icons": [
+        {
+            "src": "/static/icon.png",
+            "sizes": "192x192",
+            "type": "image/png",
+	        "purpose": "any maskable"
+        },
+        {
+            "src": "/static/icon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+	        "purpose": "any maskable"
+        }
+    ],
+    "theme_color": "#1C3144",
+    "background_color": "#232323",
+    "display": "standalone",
+    "orientation": "any",
+    "categories": ["social", "lifestyle", "gaming", "ttrpg", "group finder"],
+    "screenshots": [
+        {
+            "src": "/static/logo.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "platform": "wide",
+            "label": "DungeonFinder's Logo"
+        },
+        {
+            "src": "/static/logo.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "platform": "wide",
+            "label": "Enter parameters to find your ideal game!"
+        },
+        {
+            "src": "/static/logo.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "platform": "wide",
+            "label": "Search results are filtered based on YOUR criteria!"
+        },
+        {
+            "src": "/static/logo.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "platform": "wide",
+            "label": "Create a game to start finding players!"
+        },
+        {
+            "src": "/static/logo.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "platform": "wide",
+            "label": "Easily manage your games!"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Search | DungeonFinder",
+            "url": "/",
+            "description": "Enter search parameters to find your ideal game on DungeonFinder"
+        },
+        {
+            "name": "Create Game | DungeonFinder",
+            "url": "/games/create/",
+            "descrition": "Create a post to starting finding players for your ideal game on DungeonFinder"
+        }
+    ]
+}

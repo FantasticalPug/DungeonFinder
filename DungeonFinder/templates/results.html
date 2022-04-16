@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if found %}
+        <p class="instruc">
+            Click on a Row to get more Details about the Campaign
+        </p>
+        <table>
+            <tr>
+                <th>
+                    Campaign Name
+                </th>
+                <th>
+                    System
+                </th>
+                <th>
+                    Game Master's Availability
+                </th>
+                <th>
+                    Session Frequency
+                </th>
+                <th>
+                    Tags
+                </th>
+            </tr>
+            {% for game in games %}
+                <tr onclick="window.location='/games/{{game.gameid}}/'">
+                    <td>
+                        {{game.name}}
+                    </td>
+                    <td>
+                        {{game.system}}
+                    </td>
+                    <td>
+                        {{game.avail}}
+                    </td>
+                    <td>
+                        {{game.frequency}}
+                    </td>
+                    <td>
+                        {{game.tags}}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h3 class="error-message">No games matching your criteria were found! Try altering your search parameters or try again later!</h3>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <div class="profile-header">
+                {% if user.filename != "" %}
+                    <div id="profile-image">
+                        <img src="/uploads/{{user.filename}}" alt="Profile Image"/>
+                    </div>
+                {% else %}
+                    <div id="profile-image">
+                        <img src="/uploads/logo.png" alt="Default Image"/>
+                    </div>
+                {% endif %}
+                {% if user.username == logname %}
+                    <div id="game-manage">
+                        <div class="game-management">
+                            <a href="/users/edit/" class="btn btn-primary">Edit Profile</a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <h5 class="card-title">
+                {{user.username}}
+            </h5>
+            <p class="card-text">
+                <span class="label">
+                    Discord:
+                </span>
+                {% if user.username == logname %}
+                    <span id="unlink-react"></span>
+                {% else %}
+                    {% if user.discord == "" %}
+                        This adventurer has not linked their Discord
+                    {% else %}
+                        {{user.discord}}
+                    {% endif %}
+                {% endif %}
+            </p>
+            <p class="card-text">
+                <span class="label">
+                    TTRPG Experience:
+                </span>
+                {% if user.exper == "" %}
+                    {% if user.username == logname %}
+                        You have not stated your experience level
+                    {% else %}
+                        This adventurer has not stated their experience level
+                    {% endif %}
+                {% else %}
+                    {{user.exper}}
+                {% endif %}
+            </p>
+            <p class="card-text">
+                <span class="label">
+                    Favorite TTRPG Games:
+                </span>
+                {% if user.favorites == "" %}
+                    {% if user.username == logname %}
+                        You have not stated your favorite games
+                    {% else %}
+                        This adventurer has not stated their favorite games
+                    {% endif %}
+                {% else %}
+                    {{user.favorites}}
+                {% endif %}
+            </p>
+            <p class="card-text">
+                <span class="label">
+                    Bio:
+                </span>
+                {% if user.bio == "" %}
+                    {% if user.username == logname %}
+                        You have not given a bio about yourself
+                    {% else %}
+                        This adventurer has not given a bio about themself
+                    {% endif %}
+                {% else %}
+                    {{user.bio}}
+                {% endif %}
+            </p>
+            {% if logname == user.username %}
+                <p class="card-text">
+                    Games I Am Running:
+                    <ul>
+                        {% for game in running %}
+                            <li>
+                                <a href="/games/{{game.gameid}}" class="btn btn-secondary">
+                                    {{game.name}}
+                                </a>
+                            </li>
+                        {% endfor %}
+                        {% if running|length == 0 %}
+                            <li>
+                                You are not running any games
+                            </li>
+                        {% endif %}
+                    </ul>
+                </p>
+                <p class="card-text">
+                    Games I Joined:
+                    <ul>
+                        {% for game in joined %}
+                            <li>
+                                <a href="/games/{{game.gameid}}" class="btn btn-secondary">
+                                    {{game.name}}
+                                </a>
+                            </li>
+                        {% endfor %}
+                        {% if joined|length == 0 %}
+                            <li>
+                                You have not joined any games
+                            </li>
+                        {% endif %}
+                    </ul>
+                </p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

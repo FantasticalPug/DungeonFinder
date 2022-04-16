@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <img class="brand2" src="/static/brand.png"/>
+        <form action="/accounts/?target=/" method="POST" enctype="multipart/form-data">
+                <input class="field" type="text" placeholder="Email" name="email"/>
+                <br>
+                <button class="btn btn-primary" type="submit">Update</button>
+                <input type="hidden" name="operation" value="edit"/>
+        </form>
+        <form class="alternate" id="delete-button" action="/accounts/delete/" method="GET">
+            <button class="btn btn-danger" type="submit">DELETE Account</button>
+        </form>
+{% endblock %}

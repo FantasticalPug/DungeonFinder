@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <img class="brand2" id="profile-brand" src="/static/brand.png"/>
+        <p>
+            Are you certain you wish to delete your account?
+        </p>
+        <form action="/accounts/?target=/accounts/login/" method="POST" enctype="multipart/form-data">
+                <button class="btn btn-danger" id="account-button" type="submit">Delete</button>
+                <input type="hidden" name="operation" value="delete"/>
+        </form>
+        <form class="alternate" action="/accounts/?target=/" method="POST" enctype="multipart/form-data">
+            <button class="btn btn-primary" id="cancel-button" type="submit">Cancel</button>
+            <input type="hidden" name="operation" value="cancel_delete"/>
+        </form>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <img class="brand" src="/static/brand.png" alt="DungeonFinder"/>
+        <form action="/accounts/?target=/" method="POST" enctype="multipart/form-data">
+                <input class="field" type="text" placeholder="Username" name="username" required/>
+                <br>
+                <input class="field" type="password" placeholder="Password" name="password" required/>
+                <br>
+                <button class="btn btn-primary submit" type="submit">Login</button>
+                <br>
+                <input type="hidden" name="operation" value="login"/>
+        </form>
+        <p class="alternate">
+                By logging in, you agree to our <a href="https://www.iubenda.com/privacy-policy/27858350" class="iubenda-black iubenda-noiframe iubenda-embed iubenda-noiframe " title="Privacy Policy ">Privacy Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script> including our <a href="https://www.iubenda.com/privacy-policy/27858350/cookie-policy" class="iubenda-black no-brand iubenda-noiframe iubenda-embed iubenda-noiframe " title="Cookie Policy ">Cookie Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
+        </p>
+        <p class="alternate entry">
+                Don't have an account?
+                <a class="btn btn-primary" href="/accounts/create/">Sign Up</a>
+        </p>
+        <div id="spacer3"></div>
+{% endblock %}

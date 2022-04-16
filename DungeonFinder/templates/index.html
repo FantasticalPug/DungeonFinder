@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form class="search" action="/search/" method="GET" enctype="multipart/form-data">
+        <label class="search-parameter" id="campaign">Campaign Name (Optional)</label>
+        <input class="field" type="text" name="campaign"/>
+        <br>
+        <label class="search-parameter">System (Optional)</label>
+        <select class="field" name="system">
+            <option value=""></option>
+            <option value="Dungeons & Dragons 5e">Dungeons & Dragons 5e</option>
+            <option value="Pathfinder 2e">Pathfinder 2e</option>
+            <option value="Edge of the Empire">Edge of the Empire</option>
+            <option value="Star Wars 5e Conversion">Star Wars 5e Conversion</option>
+            <option value="Mass Effect 5e Conversion">Mass Effect 5e Conversion</option>
+            <option value="Star Trek Adventures">Star Trek Adventures</option>
+            <option value="Fallout TTRPG">Fallout TTRPG</option>
+            <option value="Starfinder">Starfinder</option>
+        </select>
+        <br>
+        <label class="search-parameter">What day(s) are you hoping to play on? (Press Ctrl or Command to Select Multiple Days, Optional)</label>
+        <select class="field" name="day[]" multiple>
+            <option value="Sunday">Sunday</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+        </select>
+        <br>
+        <label class="search-parameter">What time are you hoping to start playing? (Optional)</label>
+        <input type="time" name="begin"/>
+        <br>
+        <label class="search-parameter">When is the latest you would like to play? (Optional)</label>
+        <input type="time" name="end"/>
+        <br>
+        <label class="search-parameter">How frequently would you like the game to run? (Optional)</label>
+        <select class="field" name="frequency">
+            <option value=""></option>
+            <option value="Twice a Week">Twice a Week</option>
+            <option value="Weekly">Weekly</option>
+            <option value="Biweekly">Biweekly</option>
+            <option value="Monthly">Monthly</option>
+        </select>
+        <br>
+        <label class="search-parameter">
+            Tags (Press Enter or Comma to Add)
+        </label>
+        <input class="field" type="text" name="tags" data-role="tagsinput"/>
+        <br>
+        <input type="checkbox" id="filter-tags" name="filter" value="Y">
+        <label id="filter-tags-label">Filter out campaigns with no matched tags?</label>
+        <br>
+        <button class="btn btn-primary" id="search-button" type="submit">Search</button>
+    </form>
+    <p>
+        Looking to host a campaign?
+        <a class="btn btn-primary" href="/games/create/">Create Campaign Post</a>
+    </p>
+{% endblock %}

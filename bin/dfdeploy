@@ -1,0 +1,4 @@
+#!/bin/bash
+
+pkill -f gunicorn
+gunicorn -b localhost:8000 -w 2 -D DungeonFinder:app

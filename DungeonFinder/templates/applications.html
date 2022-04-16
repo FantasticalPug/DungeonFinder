@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if found %}
+        <p class="instruc">
+            Review the players who applied and click "Accept" to have them officially join the campaign
+        </p>
+        <table>
+            <tr>
+                <th>
+                    Adventurer
+                </th>
+                {% for question in questions %}
+                    <th>
+                        {{question.question}}
+                    </th>
+                {% endfor %}
+                <th>
+                    Accept?
+                </th>
+            </tr>
+            {% for response in responses %}
+                <tr>
+                    <td>
+                        <a class="btn btn-secondary" href="/users/{{response[0].player}}">{{response[0].player}}</a>
+                    </td>
+                    {% for answer in response %}
+                        <td>
+                            {{answer.answer}}
+                        </td>
+                    {% endfor %}
+                    <td>
+                        <a class="btn btn-primary" href="/games/{{gameid}}/apply/accept/?player={{response[0].player}}">Accept</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h3 class="error-message">No (additional) Adventurers have applied to your campaign yet!</h3>
+    {% endif %}
+{% endblock %}

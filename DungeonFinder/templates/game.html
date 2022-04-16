@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <div class="profile-header">
+                {% if game.filename != "" %}
+                    <span id="profile-image">
+                        <img src="/uploads/{{game.filename}}" alt="Profile Image"/>
+                    </span>
+                {% else %}
+                    <span id="profile-image">
+                        <img src="/uploads/logo.png" alt="Default Image"/>
+                    </span>
+                {% endif %}
+                {% if game.owner == logname %}
+                    <span id="game-manage">
+                        {% if game.must_apply == 1 %}
+                        <div class="game-management">
+                            <a class="btn btn-primary" id="quest-apps" href="/games/{{game.gameid}}/apply/view/">View Applications</a>
+                        </div>
+                        {% endif %}
+                        <div class="game-management">
+                            <a class="btn btn-primary" id="quest-edit" href="/games/edit/?gameid={{game.gameid}}">Edit Campaign</a>
+                        </div>
+                        <div class="game-management">
+                            <button class="btn btn-danger" id="quest-rem" onclick="document.getElementById('delete-modal').style.display='block'">Remove Campaign</button>
+                        </div>
+                    </span>
+                {% endif %}
+            </div>
+            <h5 class="card-title">
+                {{game.name}}
+            </h5>
+            <h6 class="card-title">
+                {{game.system}}
+            </h6>
+            <h6 class="card-title">
+                <span class="label">Game Master:</span>
+                <a class="btn btn-secondary" href="/users/{{game.owner}}/">
+                    {{game.owner}}
+                </a>
+            </h6>
+            <p class="card-text">
+                <span class="label">Game Master's Availability: </span>{{game.avail}}
+            </p>
+            <p class="card-text">
+                <span class="label">Session Frequency: </span>{{game.frequency}}
+            </p>
+            <p class="card-text">
+                <span class="label">Welcomed Experience Levels: </span>{{game.exper}}
+            </p>
+            <p class="card-text">
+                <span class="label">Tags: </span>{{game.tags}}
+            </p>
+            <p class="card-text" id="game-description">
+                <span class="label">Description: </span>{{game.description}}
+            </p>
+            <p id="join">
+                {% if game.owner != logname and game.must_apply == 0 or game.owner != logname and status == "Joined" %}
+                    <span id="toggle-join"></span>
+                {% elif game.owner != logname and status == "None" %}
+                    Slots: {{game.players}} / {{game.slots}} <a class="btn btn-primary" href="/games/{{game.gameid}}/apply/">Apply</a>
+                {% elif game.owner != logname and status == "Applied" %}
+                    Slots: {{game.players}} / {{game.slots}} <button class="btn btn-primary" disabled>Applied</button>
+                {% else %}
+                    <div id="players-react"></div>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    <div id="delete-modal" class="modal">
+        <span onclick="document.getElementById('delete-modal').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <div class="container">
+            <h1>Halt, Traveler!</h1>
+            <p id="modal-text">Are you certain you no longer have need to hire Adventurers for this Campaign?</p>
+            <form action="/games/delete/" method="POST">
+                <button type="button" id="modal-cancel" class="btn btn-primary" onclick="document.getElementById('delete-modal').style.display='none'">No, the Hordes must be Defeated!</button>
+                <button type="submit" id="modal-submit" class="btn btn-danger">Yes, the Hordes have been Vanquished!</button>
+                <input type="hidden" name="gameid" value="{{game.gameid}}"/>
+            </form>
+        </div>
+    </div>
+{% endblock %}

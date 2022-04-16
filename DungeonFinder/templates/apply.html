@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3 id="apply-header">Apply for {{game.name}}</h3>
+    <form class="search" action="/games/{{game.gameid}}/apply/submit/" method="POST" enctype="multipart/form-data">
+        {% for question in questions %}
+            <label class="search-parameter" id="campaign">{{question.question}}</label>
+            <input class="field" type="text" name="{{question.questionid}}" required/>
+            <br>
+        {% endfor %}
+        <button id="create-button" class="btn btn-primary" type="submit">Submit Application</button>
+    </form>
+{% endblock %}

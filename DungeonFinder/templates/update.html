@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form class="search" action="/games/update/" method="POST" enctype="multipart/form-data">
+        <label class="search-parameter" id="campaign">Campaign Name</label>
+        <input class="field" type="text" name="campaign" value="{{game.name}}" required/>
+        <br>
+        <label class="search-parameter">System</label>
+        <select class="field" name="system" required>
+            {% if game.system == "Dungeons & Dragons 5e" %}
+                <option value="Dungeons & Dragons 5e" selected>Dungeons & Dragons 5e</option>
+            {% else %}
+                <option value="Dungeons & Dragons 5e">Dungeons & Dragons 5e</option>
+            {% endif %}
+            {% if game.system == "Pathfinder 2e" %}
+                <option value="Pathfinder 2e" selected>Pathfinder 2e</option>
+            {% else %}
+                <option value="Pathfinder 2e">Pathfinder 2e</option>
+            {% endif %}
+            {% if game.system == "Edge of the Empire" %}
+                <option value="Edge of the Empire" selected>Edge of the Empire</option>
+            {% else %}
+                <option value="Edge of the Empire">Edge of the Empire</option>
+            {% endif %}
+            {% if game.system == "Star Wars 5e Conversion" %}
+                <option value="Star Wars 5e Conversion" selected>Star Wars 5e Conversion</option>
+            {% else %}
+                <option value="Star Wars 5e Conversion">Star Wars 5e Conversion</option>
+            {% endif %}
+            {% if game.system == "Mass Effect 5e Conversion" %}
+                <option value="Mass Effect 5e Conversion" selected>Mass Effect 5e Conversion</option>
+            {% else %}
+                <option value="Mass Effect 5e Conversion">Mass Effect 5e Conversion</option>
+            {% endif %}
+            {% if game.system == "Star Trek Adventures" %}
+                <option value="Star Trek Adventures" selected>Star Trek Adventures</option>
+            {% else %}
+                <option value="Star Trek Adventures">Star Trek Adventures</option>
+            {% endif %}
+            {% if game.system == "Fallout TTRPG" %}
+                <option value="Fallout TTRPG" selected>Fallout TTRPG</option>
+            {% else %}
+                <option value="Fallout TTRPG">Fallout TTRPG</option>
+            {% endif %}
+            {% if game.system == "Starfinder" %}
+                <option value="Starfinder" selected>Starfinder</option>
+            {% else %}
+                <option value="Starfinder">Starfinder</option>
+            {% endif %}
+        </select>
+        <br>
+        <label class="search-parameter">What day(s) are you available? (Press Ctrl or Command to Select Multiple Days)</label>
+        <select class="field" name="day[]" multiple required>
+            {% if "Anyday" in game.avail or "Sunday" in game.avail %}
+                <option value="Sunday" selected>Sunday</option>
+            {% else %}
+                <option value="Sunday">Sunday</option>
+            {% endif %}
+            {% if "Anyday" in game.avail or "Monday" in game.avail %}
+                <option value="Monday" selected>Monday</option>
+            {% else %}
+                <option value="Monday">Monday</option>
+            {% endif %}
+            {% if "Anyday" in game.avail or "Tuesday" in game.avail %}
+                <option value="Tuesday" selected>Tuesday</option>
+            {% else %}
+                <option value="Tuesday">Tuesday</option>
+            {% endif %}
+            {% if "Anyday" in game.avail or "Wednesday" in game.avail %}
+                <option value="Wednesday" selected>Wednesday</option>
+            {% else %}
+                <option value="Wednesday">Wednesday</option>
+            {% endif %}
+            {% if "Anyday" in game.avail or "Thursday" in game.avail %}
+                <option value="Thursday" selected>Thursday</option>
+            {% else %}
+                <option value="Thursday">Thursday</option>
+            {% endif %}
+            {% if "Anyday" in game.avail or "Friday" in game.avail %}
+                <option value="Friday" selected>Friday</option>
+            {% else %}
+                <option value="Friday">Friday</option>
+            {% endif %}
+            {% if "Anyday" in game.avail or "Saturday" in game.avail %}
+                <option value="Saturday" selected>Saturday</option>
+            {% else %}
+                <option value="Saturday">Saturday</option>
+            {% endif %}
+        </select>
+        <br>
+        <label class="search-parameter">What time would you be able to start?</label>
+        {% set availList = game.avail.split(' from ') %}
+        {% set times = availList[1].split(' until ') %}
+        {% set begin = times[0] %}
+        {% if "AM" in begin %}
+            {% set begin = begin.replace(' AM', '') %}
+            {% set minute = begin.split(':')[1] %}
+            {% set begin = begin.split(':')[0] | int %}
+            {% if begin == 12 %}
+                {% set begin = begin - 12 %}
+                {% set begin = '0' ~ begin %}
+            {% endif %}
+            {% set begin = begin ~ ':' ~ minute %}
+        {% else %}
+            {% set begin = begin.replace(' PM', '') %}
+            {% set minute = begin.split(':')[1] %}
+            {% set begin = begin.split(':')[0] | int %}
+            {% if begin != 12 %}
+                {% set begin = begin + 12 %}
+            {% endif %}
+            {% set begin = begin ~ ':' ~ minute %}
+        {% endif %}
+        {% set end = times[1] %}
+        {% if "AM" in end %}
+            {% set end = end.replace(' AM', '') %}
+            {% set minute = end.split(':')[1] %}
+            {% set end = end.split(':')[0] | int %}
+            {% if end == 12 %}
+                {% set end = end - 12 %}
+                {% set end = '0' ~ end %}
+            {% endif %}
+            {% set end = end ~ ':' ~ minute %}
+        {% else %}
+            {% set end = end.replace(' PM', '') %}
+            {% set minute = end.split(':')[1] %}
+            {% set end = end.split(':')[0] | int %}
+            {% if end != 12 %}
+                {% set end = end + 12 %}
+            {% endif %}
+            {% set end = end ~ ':' ~ minute %}
+        {% endif %}
+        <input type="time" name="begin" value="{{begin}}" required/>
+        <br>
+        <label class="search-parameter">When is the latest you would be able to go?</label>
+        <input type="time" name="end" value="{{end}}" required/>
+        <br>
+        <label class="search-parameter">Session Frequency</label>
+        <select class="field" name="frequency" required>
+            {% if game.frequency == "Twice a Week" %}
+                <option value="Twice a Week" selected>Twice a Week</option>
+            {% else %}
+                <option value="Twice a Week">Twice a Week</option>
+            {% endif %}
+            {% if game.frequency == "Weekly" %}
+                <option value="Weekly" selected>Weekly</option>
+            {% else %}
+                <option value="Weekly">Weekly</option>
+            {% endif %}
+            {% if game.frequency == "Biweekly" %}
+                <option value="Biweekly" selected>Biweekly</option>
+            {% else %}
+                <option value="Biweekly">Biweekly</option>
+            {% endif %}
+            {% if game.frequency == "Monthly" %}
+                <option value="Monthly" selected>Monthly</option>
+            {% else %}
+                <option value="Monthly">Monthly</option>
+            {% endif %}
+        </select>
+        <br>
+        <label class="search-parameter">Tags (Press Enter or Comma to Add)</label>
+        <input class="field" type="text" name="tags" value="{{game.tags}}" data-role="tagsinput"/>
+        <br>
+        <label class="search-parameter" id="desc-param">Description</label>
+        <textarea class="field" id="desc" type="text" name="description" required>{{game.description}}</textarea>
+        <br>
+        <label class="search-parameter">How many adventurers are you willing to hire for this campaign?</label>
+        <input class="field" type="number" name="slots" min="1" value="{{game.slots}}" required/>
+        <br>
+        <label class="search-parameter">What experience levels are you willing to accept?</label>
+        <select class="field" name="exp[]" multiple required>
+            {% if "New (Less than 1 year)" in game.exper or "All" in game.exper %}
+                <option value="New (Less than 1 year)" selected>New (Less than 1 year)</option>
+            {% else %}
+                <option value="New (Less than 1 year)">New (Less than 1 year)</option>
+            {% endif %}
+            {% if "Amateur (1-2 Years)" in game.exper or "All" in game.exper %}
+                <option value="Amateur (1-2 Years)" selected>Amateur (1-2 Years)</option>
+            {% else %}
+                <option value="Amateur (1-2 Years)">Amateur (1-2 Years)</option>
+            {% endif %}
+            {% if "Experienced (3-4 Years)" in game.exper or "All" in game.exper %}
+                <option value="Experienced (3-4 Years)" selected>Experienced (3-4 Years)</option>
+            {% else %}
+                <option value="Experienced (3-4 Years)">Experienced (3-4 Years)</option>
+            {% endif %}
+            {% if "Veteran (5+ Years)" in game.exper or "All" in game.exper %}
+                <option value="Veteran (5+ Years)" selected>Veteran (5+ Years)</option>
+            {% else %}
+                <option value="Veteran (5+ Years)">Veteran (5+ Years)</option>
+            {% endif %}
+        </select>
+        <br>
+        <label class="search-parameter">Campaign Image (Optional)</label>
+        <input class="file-input" type="file" name="profile"/>
+        <br>
+        {% if game.must_apply == 1 %}
+            <input type="checkbox" id="toggle-apply" name="apply" value="Y" checked>
+        {% else %}
+            <input type="checkbox" id="toggle-apply" name="apply" value="Y">
+        {% endif %}
+        <label id="toggle-apply-label">Players must apply to join</label>
+        <br>
+        <input type="hidden" name="gameid" value="{{game.gameid}}"/>
+        <button id="create-button" class="btn btn-primary" type="submit">Update Campaign</button>
+    </form>
+{% endblock %}

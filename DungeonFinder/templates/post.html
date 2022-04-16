@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form class="search" action="/games/post/" method="POST" enctype="multipart/form-data">
+        <label class="search-parameter" id="campaign">Campaign Name</label>
+        <input class="field" type="text" name="campaign" required/>
+        <br>
+        <label class="search-parameter">System</label>
+        <select class="field" name="system" required>
+            <option value="Dungeons & Dragons 5e">Dungeons & Dragons 5e</option>
+            <option value="Pathfinder 2e">Pathfinder 2e</option>
+            <option value="Edge of the Empire">Edge of the Empire</option>
+            <option value="Star Wars 5e Conversion">Star Wars 5e Conversion</option>
+            <option value="Mass Effect 5e Conversion">Mass Effect 5e Conversion</option>
+            <option value="Star Trek Adventures">Star Trek Adventures</option>
+            <option value="Fallout TTRPG">Fallout TTRPG</option>
+            <option value="Starfinder">Starfinder</option>
+        </select>
+        <br>
+        <label class="search-parameter">What day(s) are you available? (Press Ctrl or Command to Select Multiple Days)</label>
+        <select class="field" name="day[]" multiple required>
+            <option value="Sunday">Sunday</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+        </select>
+        <br>
+        <label class="search-parameter">What time would you be able to start?</label>
+        <input type="time" name="begin" required/>
+        <br>
+        <label class="search-parameter">When is the latest you would be able to go?</label>
+        <input type="time" name="end" required/>
+        <br>
+        <label class="search-parameter">Session Frequency</label>
+        <select class="field" name="frequency" required>
+            <option value="Twice a Week">Twice a Week</option>
+            <option value="Weekly">Weekly</option>
+            <option value="Biweekly">Biweekly</option>
+            <option value="Monthly">Monthly</option>
+        </select>
+        <br>
+        <label class="search-parameter">Tags (Press Enter or Comma to Add)</label>
+        <input class="field" type="text" name="tags" data-role="tagsinput"/>
+        <br>
+        <label class="search-parameter" id="desc-param">Description</label>
+        <textarea class="field" id="desc" type="text" name="description" required></textarea>
+        <br>
+        <label class="search-parameter">How many adventurers are you willing to hire for this campaign?</label>
+        <input class="field" type="number" name="slots" min="1" required/>
+        <br>
+        <label class="search-parameter">What experience levels are you willing to accept?</label>
+        <select class="field" name="exp[]" multiple required>
+            <option value="New (Less than 1 year)">New (Less than 1 Year)</option>
+            <option value="Amateur (1-2 Years)">Amateur (1-2 Years)</option>
+            <option value="Experienced (3-4 Years)">Experienced (3-4 Years)</option>
+            <option value="Veteran (5+ Years)">Veteran (5+ Years)</option>
+        </select>
+        <br>
+        <label class="search-parameter">Campaign Image (Optional)</label>
+        <input class="file-input" type="file" name="profile"/>
+        <br>
+        <input type="checkbox" id="toggle-apply" name="apply" value="Y">
+        <label id="toggle-apply-label">Players must apply to join</label>
+        <br>
+        <button id="create-button" class="btn btn-primary" type="submit">Create Campaign Post</button>
+    </form>
+{% endblock %}
