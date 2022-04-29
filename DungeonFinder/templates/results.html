@@ -3,7 +3,7 @@
 {% block content %}
     {% if found %}
         <p class="instruc">
-            Click on a Row to get more Details about the Campaign
+            Review the campaigns that fit your criteria and click on its name to get more info and join or apply
         </p>
         <table>
             <tr>
@@ -22,11 +22,14 @@
                 <th>
                     Tags
                 </th>
+                <th>
+                    Available Seats
+                </th>
             </tr>
             {% for game in games %}
-                <tr onclick="window.location='/games/{{game.gameid}}/'">
+                <tr>
                     <td>
-                        {{game.name}}
+                        <a class="btn btn-secondary" href="/games/{{game.gameid}}/">{{game.name}}</a>
                     </td>
                     <td>
                         {{game.system}}
@@ -39,6 +42,9 @@
                     </td>
                     <td>
                         {{game.tags}}
+                    </td>
+                    <td>
+                        {{game.seats}}
                     </td>
                 </tr>
             {% endfor %}

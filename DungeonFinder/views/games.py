@@ -34,7 +34,7 @@ def show_game(gameid):
     data = data[0]
     cur = connection.execute(
         "SELECT * FROM sessions WHERE gameid = ? AND status = ?",
-        (gameid, "Joinedd", )
+        (gameid, "Joined", )
     )
     players = cur.fetchall()
     data['joined'] = players
@@ -48,12 +48,17 @@ def show_game(gameid):
     status = "None"
     if len(data2) == 1:
         status = data2[0]['status']
+    cur = connection.execute(
+        f"SELECT * FROM responses_{gameid}"
+    )
+    applications = len(cur.fetchall())
     context = {
         "logname": logname,
         "game": data,
         "joined": logname_joined,
         "status": status,
-        "page": data['name']
+        "page": data['name'],
+        "applications": applications
     }
     return flask.render_template("game.html", **context)
 

@@ -119,6 +119,13 @@ def show_results():
     if len(games) == 0:
         games_found = False
     games = sorted(games, key=lambda game: game['count'], reverse=True)
+    for game in games:
+        cur = connection.execute(
+            "SELECT * FROM sessions WHERE gameid = ? AND status = ?",
+            (game['gameid'], "Joined", )
+        )
+        players = cur.fetchall()
+        game['seats'] = int(game['slots']) - len(players)
     context = {
         "logname": logname,
         "games": games,
